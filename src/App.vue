@@ -1,3 +1,3 @@
 <template>
-  <el-button>hello</el-button>
+  <el-button type="primary">hello</el-button>
 </template>
