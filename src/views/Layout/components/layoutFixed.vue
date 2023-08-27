@@ -1,9 +1,13 @@
 <script setup>
+import { useScroll } from '@vueuse/core'
+const { y } = useScroll(window)
 
 </script>
 
 <template>
-  <div class="app-header-sticky show">
+<!--  当y大于78的时候才显示-->
+  <div class="app-header-sticky" :class="{show: y>78}">
+    {{y}}
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
