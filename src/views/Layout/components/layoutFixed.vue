@@ -2,46 +2,46 @@
 import { useScroll } from '@vueuse/core'
 const { y } = useScroll(window)
 
+import {getCategoryAPI} from "@/apis/layout.js"
+import {onMounted} from "vue";
+//导入ref
+import {ref} from "vue";
+
+//响应式数据数组
+const categoryList = ref([]);
+
+const getCategory =async ()=>{
+  const res = await getCategoryAPI();
+  console.log(res);
+
+  categoryList.value = res.result
+
+}
+
+onMounted(()=>{
+  getCategory();
+})
 </script>
 
 <template>
-<!--  当y大于78的时候才显示-->
-  <div class="app-header-sticky" :class="{show: y>78}">
-    {{y}}
+  <div class="app-header-sticky" :class="{ show: y > 78 }">
     <div class="container">
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
-      <ul class="app-header-nav ">
+      <ul class="app-header-nav">
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li>
-          <RouterLink to="/">居家</RouterLink>
+
+        <!--渲染列表-->
+
+        <li class="home" v-for="item in categoryList" :key="item.id">
+
+          <RouterLink :to="'/category/'+item.id">{{item.name}}</RouterLink>
+
         </li>
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">母婴</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">个护</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">数码</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">运动</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">杂项</RouterLink>
-        </li>
+
+
       </ul>
 
       <div class="right">
