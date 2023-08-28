@@ -1,26 +1,14 @@
 <script setup>
 import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/stores/category'
 const { y } = useScroll(window)
 
-import {getCategoryAPI} from "@/apis/layout.js"
-import {onMounted} from "vue";
-//导入ref
-import {ref} from "vue";
+//使用pinia中的数据
 
-//响应式数据数组
-const categoryList = ref([]);
+//得到实例对象
+const categoryStore = useCategoryStore()
 
-const getCategory =async ()=>{
-  const res = await getCategoryAPI();
-  console.log(res);
 
-  categoryList.value = res.result
-
-}
-
-onMounted(()=>{
-  getCategory();
-})
 </script>
 
 <template>
@@ -35,7 +23,7 @@ onMounted(()=>{
 
         <!--渲染列表-->
 
-        <li class="home" v-for="item in categoryList" :key="item.id">
+        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
 
           <RouterLink :to="'/category/'+item.id">{{item.name}}</RouterLink>
 

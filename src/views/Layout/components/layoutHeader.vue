@@ -1,23 +1,7 @@
 <script setup>
-import {getCategoryAPI} from "@/apis/layout.js"
-import {onMounted} from "vue";
-//导入ref
-import {ref} from "vue";
+import { useCategoryStore } from '@/stores/category'
 
-//响应式数据数组
-const categoryList = ref([]);
-
-const getCategory =async ()=>{
-  const res = await getCategoryAPI();
-  console.log(res);
-
-  categoryList.value = res.result
-
-}
-
-onMounted(()=>{
-  getCategory();
-})
+const categoryStore = useCategoryStore()
 </script>
 
 <template>
@@ -32,7 +16,7 @@ onMounted(()=>{
         </li>
 
         <!--渲染列表-->
-        <li class="home" v-for="item in categoryList" :key="item.id">
+        <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
           <RouterLink :to="'/category/'+item.id">{{item.name}}</RouterLink>
 
         </li>
