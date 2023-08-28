@@ -21,6 +21,5 @@ onMounted(() => {
   <LayoutHeader />
   <RouterView />
   <LayoutFooter />
-<!-- //高度很高的div-->
-  <div style="height: 1000px"></div>
+
 </template>
