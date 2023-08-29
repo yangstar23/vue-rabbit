@@ -1,34 +1,29 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import HomePanel from "@/views/Home/components/HomePanel.vue";
-import {getRecommendAPI} from "@/apis/home";
-
-const recommendList = ref([]);
-
-const getRecommend = async () => {
-  const res = await getRecommendAPI();
-  recommendList.value = res.result;
-};
-
-onMounted(() => getRecommend());
+import HomePanel from './HomePanel.vue'
+import { getHotAPI } from '@/apis/home'
+import { ref } from 'vue'
+const hotList = ref([])
+const getHotList = async () => {
+  const res = await getHotAPI()
+  hotList.value = res.result
+}
+getHotList()
 
 </script>
 
 <template>
-  <HomePanel title="新鲜好物" sub-title="新鲜出炉 品质靠谱">
+  <HomePanel title="人气推荐" sub-title="人气爆款 不容错过">
     <ul class="goods-list">
-      <li v-for="item in recommendList" :key="item.id">
+      <li v-for="item in hotList" :key="item.id">
         <RouterLink to="/">
           <img :src="item.picture" alt="">
-          <p class="name">{{item.title}}</p>
-          <p class="price">{{item.alt}}</p>
-
+          <p class="name">{{ item.title }}</p>
+          <p class="desc">{{ item.alt }}</p>
         </RouterLink>
       </li>
     </ul>
   </HomePanel>
 </template>
-
 <style scoped lang='scss'>
 .goods-list {
   display: flex;

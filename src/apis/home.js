@@ -17,12 +17,19 @@ export function getNewGoodsAPI() {
 
 
 //封装_获取_人气推荐_接口
-export function getRecommendAPI() {
+export function getHotAPI () {
     return httpInstance({
         url: '/home/hot'
     })
 }
 
 
+
+////封装_获取_热门品牌_接口
+export const getGoodsAPI = () => {
+    return httpInstance({
+        url: '/home/goods'
+    })
+}
 
 
